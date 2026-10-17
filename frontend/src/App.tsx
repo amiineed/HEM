@@ -65,10 +65,14 @@ export default function App() {
   const updateControl = async (payload: { heating_mode?: HeatingMode; target_temp_c?: number }) => { if (!selectedSensor) return; await api.updateSensorControl(selectedSensor.id, payload); await load(); };
   const createBuilding = async (payload: Pick<Building, 'name' | 'code'>) => { await api.createBuilding(payload); await load(); };
   const createSensor = async (payload: Omit<Sensor, 'status'> & { status?: Sensor['status'] }) => { await api.createSensor(payload); await load(); };
+  const refreshAfterSensorDeletion = async (sensorId: string) => {
+    if (selectedSensorId === sensorId) setSelectedSensorId('');
+    await load();
+  };
   const dashboardDetail = detail;
   const renderedView = useMemo(() => {
     if (view === 'dashboard') return <SensorSupervisionDashboard sensor={selectedSensor} detail={dashboardDetail} onImport={() => openImport()} />;
-    if (view === 'sensors') return <SensorBuildingManagement buildings={buildings} sensors={sensors} details={details} onCreateBuilding={createBuilding} onCreateSensor={createSensor} onImport={openImport} />;
+    if (view === 'sensors') return <SensorBuildingManagement buildings={buildings} sensors={sensors} details={details} onCreateBuilding={createBuilding} onCreateSensor={createSensor} onImport={openImport} onDeleteSuccess={deleteSensor} />;
     if (view === 'imports') return <CsvImportScreen sensors={sensors} selectedSensor={selectedSensor} result={importResult} onOpenImporter={() => openImport()} />;
     if (view === 'history') return <HistoryMeasurementsScreen sensor={selectedSensor} detail={detail} />;
     return <HeatingControlScreen sensor={selectedSensor} detail={detail} onControl={updateControl} />;

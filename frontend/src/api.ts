@@ -81,6 +81,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
     }
     throw new Error(detail);
   }
+  if (response.status === 204) return undefined as T;
   return response.json() as Promise<T>;
 }
 
@@ -117,5 +118,9 @@ export const api = {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
+    }),
+  deleteSensor: (sensorId: string) =>
+    request<void>(`/sensors/${encodeURIComponent(sensorId)}`, {
+      method: 'DELETE',
     }),
 };
