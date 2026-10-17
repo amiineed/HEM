@@ -15,7 +15,7 @@ def utc_now() -> datetime:
 
 
 class Building(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="forbid", from_attributes=True)
 
     id: str = Field(default_factory=lambda: str(uuid4()))
     name: str
@@ -24,7 +24,7 @@ class Building(BaseModel):
 
 
 class Sensor(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="forbid", from_attributes=True)
 
     id: str
     building_id: str
@@ -36,7 +36,7 @@ class Sensor(BaseModel):
 
 
 class Measurement(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="forbid", from_attributes=True)
 
     id: str = Field(default_factory=lambda: str(uuid4()))
     sensor_id: str
