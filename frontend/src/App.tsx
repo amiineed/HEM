@@ -72,7 +72,7 @@ export default function App() {
   const dashboardDetail = detail;
   const renderedView = useMemo(() => {
     if (view === 'dashboard') return <SensorSupervisionDashboard sensor={selectedSensor} detail={dashboardDetail} onImport={() => openImport()} />;
-    if (view === 'sensors') return <SensorBuildingManagement buildings={buildings} sensors={sensors} details={details} onCreateBuilding={createBuilding} onCreateSensor={createSensor} onImport={openImport} onDeleteSuccess={deleteSensor} />;
+    if (view === 'sensors') return <SensorBuildingManagement buildings={buildings} sensors={sensors} details={details} onCreateBuilding={createBuilding} onCreateSensor={createSensor} onImport={openImport} onDeleteSuccess={refreshAfterSensorDeletion} />;
     if (view === 'imports') return <CsvImportScreen sensors={sensors} selectedSensor={selectedSensor} result={importResult} onOpenImporter={() => openImport()} />;
     if (view === 'history') return <HistoryMeasurementsScreen sensor={selectedSensor} detail={detail} />;
     return <HeatingControlScreen sensor={selectedSensor} detail={detail} onControl={updateControl} />;
