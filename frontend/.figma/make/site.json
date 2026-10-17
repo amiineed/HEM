@@ -1,0 +1,10 @@
+{
+  "description": "Monitor and manage municipal building energy and IoT data with real-time dashboards, sensor insights, and CSV import for efficient smart city supervision.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
